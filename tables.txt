@@ -1,0 +1,65 @@
+User 
+userID INT PK 
+username VARCHAR(50) UNIQUE NOT NULL 
+password VARCHAR(255) NOT NULL 
+email VARCHAR(100) UNIQUE NOT NULL 
+phoneNumber VARCHAR(20) 
+name VARCHAR(50) NOT NULL 
+lastName VARCHAR(50) NOT NULL 
+role VARCHAR(50) NOT NULL, δηλαδή Vet ή Οwner 
+
+Availability 
+availabilityID INT PK 
+vetID INT FK->User(userID) NOT NULL 
+availabilityDate DATE NOT NULL 
+startTime TIME NOT NULL 
+endTime TIME NOT NULL 
+status VARCHAR(15) NOT NULL, δηλαδή PENDING, CONFIRMED, CANCELLED, COMPLETED 
+
+Vaccination 
+vaccineID INT PK 
+petID INT FK->Pet(petID) NOT NULL 
+vetID INT FK->User(userID) NOT NULL 
+vaccineName VARCHAR(100) NOT NULL 
+dateAdministered DATE NOT NULL 
+nextDueDate DATE 
+notes TEXT 
+
+appointmentID INT PK
+petID INT FK->Pet(petID) NOT NULL
+vetID INT FK->User(userID) NOT NULL
+appointmentDate DATE NOT NULL
+startTime TIME NOT NULL
+endTime TIME NOT NULL
+status VARCHAR(15) NOT NULL
+comments TEXT
+
+
+treatmentID INT PK
+recordID INT FK->MedicalRecord(recordID) NOT NULL
+name VARCHAR(100) NOT NULL
+description TEXT
+date DATE NOT NULL
+medication VARCHAR(150)
+duration VARCHAR(50)
+instructions TEXT
+
+Pet
+petID INT PK 
+petName VARCHAR(50) NOT NULL 
+species VARCHAR(30) NOT NULL
+breed VARCHAR(50)
+birthDate DATE 
+weight DECIMAL(5,2)
+gender VARCHAR(10)
+ownerID INT FK->User(userID), NOT NULL 
+
+
+MedicalRecord 
+recordID INT PK
+petID INT FK->Pet(petID),NOT NULL 
+vetID INT FK->User(userID),NOT NULL
+appointmentID INT FK->Appointment(appointmentID),NULL
+date DATETIME NOT NULL
+diagnosis VARCHAR(255) 
+notes TEXT
